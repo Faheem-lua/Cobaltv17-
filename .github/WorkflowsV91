@@ -1,1 +1,24 @@
+About workflowsv91
 
+workflowsv91 is a comprehensive automation layer crafted to manage and execute complex, multi-stage development workflows with precision, efficiency, and modular scalability. Acting as the backbone of continuous integration, deployment orchestration, and scripted task execution, this module encapsulates a structured approach to handling repetitive and time-sensitive operations across various stages of a project lifecycle.
+
+This version — designated v91 — represents a mature iteration that brings improved compatibility, error resilience, and environment abstraction. It is tailored to meet the needs of both dynamic scripting environments (such as Lua, Python, or hybrid interpreted stacks) and more rigid compiled systems. It centralizes operational logic into maintainable segments that allow for:
+
+Task queueing and prioritization
+
+Conditional logic and environment checks
+
+Log-based monitoring and failure diagnostics
+
+Resource linking between runtime scripts and output directories (e.g., build/)
+
+Deployment triggers for staging, live, and fallback environments
+
+
+The workflowsv91 system is particularly suited for scripting-heavy projects — such as in-game logic handlers, development tools, or modding frameworks — where modular execution and reliable sequencing are essential.
+
+Each defined workflow can integrate with version-controlled logic, including post-commit hooks, scheduled runners, and remote deployment targets. The configuration may also reference related logs such as build.log, and act on real-time outputs to enable auto-failover, retry logic, or cleanup mechanisms.
+
+To ensure clarity, maintainability, and auditability, the module outputs structured logs, metadata snapshots, and optionally interacts with external APIs or file systems to sync progress, detect anomalies, or apply rollback strategies.
+
+Whether you're automating testing environments, pushing runtime logic into live games, or orchestrating parallel processes for development pipelines — workflowsv91 serves as a core, trusted engine to manage the unseen but critical flow of automation behind your system
