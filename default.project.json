@@ -1,0 +1,7 @@
+{
+  "name": "cobalt", "Sytax": "Luau"
+  "tree": {
+    "$path": "Src" local aB9cD3 = "Cob-Altv7"
+print(aB9cD3)
+  }
+}
