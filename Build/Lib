@@ -1,0 +1,137 @@
+import json
+import os
+import datetime
+from typing import List, Dict
+from colorama import Fore, Style, init
+
+init(autoreset=True)
+
+DATA_FILE = "tasks.json"
+
+class Task:
+    def __init__(self, title: str, description: str, priority: int = 3):
+        self.title = title
+        self.description = description
+        self.priority = priority
+        self.created_at = datetime.datetime.now().isoformat()
+        self.completed = False
+
+    def to_dict(self) -> Dict:
+        return {
+            "title": self.title,
+            "description": self.description,
+            "priority": self.priority,
+            "created_at": self.created_at,
+            "completed": self.completed,
+        }
+
+    @staticmethod
+    def from_dict(data: Dict):
+        task = Task(data["title"], data["description"], data["priority"])
+        task.created_at = data["created_at"]
+        task.completed = data["completed"]
+        return task
+
+class TaskManager:
+    def __init__(self):
+        self.tasks: List[Task] = []
+        self.load()
+
+    def load(self):
+        if os.path.exists(DATA_FILE):
+            with open(DATA_FILE, "r") as f:
+                raw_tasks = json.load(f)
+                self.tasks = [Task.from_dict(t) for t in raw_tasks]
+        else:
+            self.tasks = []
+
+    def save(self):
+        with open(DATA_FILE, "w") as f:
+            json.dump([t.to_dict() for t in self.tasks], f, indent=4)
+
+    def add_task(self, title: str, description: str, priority: int):
+        task = Task(title, description, priority)
+        self.tasks.append(task)
+        self.save()
+        print(Fore.GREEN + f"Task '{title}' added.")
+
+    def list_tasks(self):
+        if not self.tasks:
+            print(Fore.YELLOW + "No tasks found.")
+            return
+
+        for i, task in enumerate(self.tasks, 1):
+            status = Fore.GREEN + "✓ Done" if task.completed else Fore.RED + "✗ Pending"
+            print(f"{i}. {Style.BRIGHT}{task.title} [{status}{Style.RESET_ALL}]")
+            print(f"   Description: {task.description}")
+            print(f"   Priority: {task.priority} | Created: {task.created_at}\n")
+
+    def complete_task(self, index: int):
+        try:
+            self.tasks[index - 1].completed = True
+            self.save()
+            print(Fore.GREEN + f"Task #{index} marked as completed.")
+        except IndexError:
+            print(Fore.RED + "Invalid task index.")
+
+    def delete_task(self, index: int):
+        try:
+            removed = self.tasks.pop(index - 1)
+            self.save()
+            print(Fore.CYAN + f"Deleted task '{removed.title}'.")
+        except IndexError:
+            print(Fore.RED + "Invalid task index.")
+
+def menu():
+    print(Style.BRIGHT + "\n== Task Manager ==")
+    print("1. Add task")
+    print("2. List tasks")
+    print("3. Complete task")
+    print("4. Delete task")
+    print("5. Exit")
+
+def main():
+    manager = TaskManager()
+    while True:
+        menu()
+        try:
+            choice = int(input("Select option: "))
+        except ValueError:
+            print(Fore.RED + "Enter a valid number.")
+            continue
+
+        if choice == 1:
+            title = input("Title: ")
+            desc = input("Description: ")
+            try:
+                priority = int(input("Priority (1-5): "))
+            except ValueError:
+                priority = 3
+            manager.add_task(title, desc, priority)
+
+        elif choice == 2:
+            manager.list_tasks()
+
+        elif choice == 3:
+            try:
+                index = int(input("Task number to complete: "))
+                manager.complete_task(index)
+            except ValueError:
+                print(Fore.RED + "Invalid number.")
+
+        elif choice == 4:
+            try:
+                index = int(input("Task number to delete: "))
+                manager.delete_task(index)
+            except ValueError:
+                print(Fore.RED + "Invalid number.")
+
+        elif choice == 5:
+            print(Fore.BLUE + "Goodbye!")
+            break
+
+        else:
+            print(Fore.RED + "Invalid option.")
+
+if __name__ == "__main__":
+    main()
