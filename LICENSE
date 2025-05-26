@@ -186,7 +186,7 @@
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   Copyright [yyyy] [name of copyright owner]
+   Copyright [2025-2027] [Faheem & Upio]
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -199,3 +199,14 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+  ### Apache License Notice
+
+This script is used solely for testing purposes, specifically to evaluate the **[Cobalt v17]** project.  
+The referenced code originates from the official documentation:
+
+**[https://github.com/notpoiu/cobalt/blob/main/.lune/datetime.luau](https://github.com/notpoiu/cobalt/blob/main/.lune/datetime.luau)**
+
+I do **not** claim ownership or intend to steal any part of the project.
+
+Usage complies with the **Apache License 2.0**, as confirmed by GitHub.
